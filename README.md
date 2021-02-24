@@ -1,4 +1,4 @@
-<p align="center"><img width="100"src="public/favicon_io/android-chrome-512x512.png"></p>
+<p align="center"><img width="100"src="https://img2.pngio.com/nodejs-javascript-web-application-expressjs-computer-software-node-png-820_820.jpg"></p>
 
 <h1 align="center"><strong>Express MySQL Boilerplate</strong></h1>
 
