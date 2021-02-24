@@ -16,12 +16,15 @@
     "scripts": {
         "build": "tsc",
         "prestart": "npm run build",
-        "start": "node ."
+        "start": "ts-node src/index.ts"
     },
     "dependencies": {
         "cors": "^2.8.5",
-        "dotenv": "^8.2.0",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "mysql": "^2.18.1",
+        "reflect-metadata": "^0.1.13",
+        "ts-node": "^9.1.1",
+        "typeorm": "^0.2.31"
     },
     "devDependencies": {
         "@types/cors": "^2.8.10",

@@ -1,29 +1,30 @@
-import dotenv from "dotenv";
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import {Request, Response} from "express";
 import express from "express";
 import cors from 'cors';
 import bodyParser = require('body-parser');
+import {AppRoutes} from "./routes";
 
-import * as routes from "./routes";
+createConnection().then(async connection => {
 
-// initialize configuration
-dotenv.config();
+    // create express app
+    const app : any = express();
+    app.use(bodyParser.json());
+    app.use(cors());
 
-// port is now available to the Node.js runtime 
-// as if it were an environment variable
-const port = process.env.SERVER_PORT;
+    // register all application routes
+    AppRoutes.forEach(route => {
+        app[route.method](route.path, (request: Request, response: Response, next: Function) => {
+            route.action(request, response)
+                .then(() => next)
+                .catch(err => next(err));
+        });
+    });
 
-const app = express();
+    // run app
+    app.listen(3000);
 
-// here we are adding middleware to parse all incoming requests as JSON 
-app.use(bodyParser.json());
+    console.log("Express application is up and running on port 3000");
 
-// here we are adding middleware to allow cross-origin requests
-app.use(cors());
-
-// Configure routes
-routes.register( app );
-
-// start the Express server
-app.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
-} );
+}).catch(error => console.log("TypeORM connection error: ", error));
